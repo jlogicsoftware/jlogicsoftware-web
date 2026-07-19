@@ -1,0 +1,154 @@
+/* Reset, typography defaults, and shared utility classes */
+
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/Geist-Variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px; /* root of the rem scale in tokens.css — intentionally literal */
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Layout */
+.container {
+  max-width: var(--measure-4xl);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.container--narrow {
+  max-width: var(--measure-3xl);
+}
+
+.container--prose {
+  max-width: var(--measure-2xl);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Inline icon sizing (used with <svg class="icon"><use ...></svg>) */
+.icon {
+  width: var(--space-5);
+  height: var(--space-5);
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon--sm {
+  width: var(--space-4);
+  height: var(--space-4);
+}
+
+.icon--xs {
+  width: var(--space-3-5);
+  height: var(--space-3-5);
+}
+
+/* Decorative background layers shared across sections */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--grid-opacity, 0.04);
+  background-image:
+    linear-gradient(var(--grid-color, var(--primary)) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color, var(--primary)) 1px, transparent 1px);
+  background-size: var(--grid-size, 40px) var(--grid-size, 40px);
+}
+
+.radial-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse var(--glow-w, 60%) var(--glow-h, 50%) at 50% var(--glow-y, 40%),
+    color-mix(in oklch, var(--primary) var(--glow-strength, 6%), transparent),
+    transparent 70%
+  );
+}
+
+/* Responsive text swaps — pick one, never both, at any width */
+.is-mobile-only {
+  display: inline;
+}
+
+.is-desktop-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .is-mobile-only {
+    display: none;
+  }
+
+  .is-desktop-only {
+    display: inline;
+  }
+}

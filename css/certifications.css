@@ -1,0 +1,37 @@
+.certifications {
+  padding-block: var(--space-12);
+  border-top: 1px solid color-mix(in oklch, var(--border) var(--tint-50), transparent);
+  border-bottom: 1px solid color-mix(in oklch, var(--border) var(--tint-50), transparent);
+  background: color-mix(in oklch, var(--slate-surface) var(--tint-30), transparent);
+}
+
+.certifications__label {
+  text-align: center;
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  color: color-mix(in oklch, var(--muted-foreground) var(--tint-60), transparent);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  margin-bottom: var(--space-6);
+}
+
+.certifications__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--space-10);
+  row-gap: var(--space-4);
+}
+
+.certifications__list span {
+  color: color-mix(in oklch, var(--muted-foreground) var(--tint-50), transparent);
+  font-weight: 600;
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-tight);
+  transition: color 0.2s;
+}
+
+.certifications__list span:hover {
+  color: color-mix(in oklch, var(--muted-foreground) var(--tint-80), transparent);
+}

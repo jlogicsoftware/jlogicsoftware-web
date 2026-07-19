@@ -1,0 +1,116 @@
+.trust-bar {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklch, var(--slate-surface) var(--tint-60), transparent);
+  backdrop-filter: blur(4px);
+}
+
+.trust-bar__inner {
+  padding-block: var(--space-12);
+}
+
+.trust-bar__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+@media (max-width: 767px) {
+  /* 5 items in 2 columns leaves an empty cell dangling on the last row —
+     let the odd one out take the full row instead. */
+  .trust-bar__grid > :last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 768px) {
+  .trust-bar__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .trust-bar__grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.trust-bar__item {
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-8) var(--space-6);
+  gap: var(--space-3);
+}
+
+a.trust-bar__item {
+  transition: background-color 0.2s;
+}
+
+a.trust-bar__item:hover {
+  background: var(--slate-surface);
+}
+
+.trust-bar__icon {
+  padding: var(--space-2-5);
+  border-radius: var(--radius-md);
+  background: color-mix(in oklch, var(--primary) var(--tint-10), transparent);
+  color: var(--primary);
+  display: inline-flex;
+}
+
+.trust-bar__icon.is-accent {
+  background: color-mix(in oklch, var(--accent) var(--tint-10), transparent);
+  color: var(--accent);
+}
+
+.trust-bar__value {
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  color: var(--primary);
+}
+
+.trust-bar__value.is-accent {
+  color: var(--accent);
+}
+
+.trust-bar__value.is-small {
+  font-size: var(--text-base);
+  line-height: var(--leading-snug);
+}
+
+@media (min-width: 768px) {
+  .trust-bar__value {
+    font-size: var(--text-3xl);
+  }
+  .trust-bar__value.is-small {
+    font-size: var(--text-lg);
+  }
+}
+
+.trust-bar__label {
+  color: var(--foreground);
+  font-size: var(--text-base-sm);
+  font-weight: 600;
+  margin-top: var(--space-0-5);
+}
+
+.trust-bar__sublabel {
+  color: var(--muted-foreground);
+  font-size: var(--text-xs);
+  margin-top: var(--space-1);
+  line-height: var(--leading-normal);
+}
+
+.trust-bar__sublabel.is-link {
+  color: color-mix(in oklch, var(--primary) var(--tint-70), transparent);
+}
+
+a.trust-bar__item:hover .trust-bar__sublabel.is-link {
+  color: var(--primary);
+  text-decoration: underline;
+}
