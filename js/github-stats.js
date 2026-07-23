@@ -133,11 +133,14 @@ const renderActivityGrid = (contributions) => {
   const maxWeeks = Math.max(GRID_MIN_WEEKS, Math.floor(gridAvailable / GRID_CELL_PX));
   const maxDays = maxWeeks * 7;
 
-  // Slice to the most recent maxDays, snapped back to a Sunday boundary so
-  // week columns stay aligned — the source array itself already starts on
-  // a Sunday, so any multiple-of-7 offset from its start is also a Sunday.
+  // Slice to at most maxDays, snapped forward to a Sunday boundary so week
+  // columns stay aligned — the source array itself already starts on a
+  // Sunday, so any multiple-of-7 offset from its start is also a Sunday.
+  // Snapping forward (not back) keeps the slice within the maxDays budget
+  // that maxWeeks was already sized for; snapping back would add up to 6
+  // extra days and overflow the grid by a whole week column.
   let sliceStart = Math.max(0, contributions.length - maxDays);
-  sliceStart -= sliceStart % 7;
+  sliceStart += (7 - (sliceStart % 7)) % 7;
   const shown = contributions.slice(sliceStart);
 
   const weeks = [];
