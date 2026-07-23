@@ -181,3 +181,21 @@
   font-size: var(--text-base-sm);
   line-height: var(--leading-relaxed);
 }
+
+.about-pillar__text .stat {
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.about-pillar__text a {
+  color: var(--foreground);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--primary) var(--tint-40), transparent);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.2s;
+}
+
+.about-pillar__text a:hover {
+  text-decoration-color: var(--primary);
+}
