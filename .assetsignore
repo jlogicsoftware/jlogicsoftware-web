@@ -5,7 +5,9 @@ worker/
 node_modules/
 .git/
 .claude/
+.githooks/
 .gitignore
+.gitleaks.toml
 .assetsignore
 wrangler.jsonc
 package.json
