@@ -1,0 +1,14 @@
+# Keep non-public files out of the static asset bundle.
+# The assets directory is the repo root, so anything not meant to be served
+# publicly must be listed here.
+worker/
+node_modules/
+.git/
+.claude/
+.gitignore
+.assetsignore
+wrangler.jsonc
+package.json
+package-lock.json
+README.md
+.DS_Store

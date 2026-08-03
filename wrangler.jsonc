@@ -1,14 +1,38 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "jlogicsoftware-web",
-  "compatibility_date": "2026-07-23",
-  "observability": {
-    "enabled": true
-  },
-  "assets": {
-    "directory": "."
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "jlogicsoftware-web",
+	"main": "worker/index.js",
+	"compatibility_date": "2026-07-23",
+	"observability": {
+		"enabled": true
+	},
+	"assets": {
+		"directory": ".",
+		"binding": "ASSETS"
+	},
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "jlogicsoftware-analytics",
+			"database_id": "97697ed2-a230-43c4-a63f-8d421def1861"
+		}
+	],
+	"ratelimits": [
+		{
+			"name": "STATS_LIMITER",
+			"namespace_id": "1001",
+			"simple": {
+				"limit": 10,
+				"period": 60
+			}
+		}
+	],
+	"triggers": {
+		"crons": [
+			"17 3 * * *"
+		]
+	}
 }

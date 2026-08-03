@@ -1,0 +1,18 @@
+title = "jlogicsoftware-web"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Public-by-design identifiers. Neither is a credential."
+regexes = [
+  # Cloudflare Web Analytics beacon token — served in HTML to every visitor.
+  '''bdb7df8e38a6474f9bd8b37010d50229''',
+  # D1 database_id — an identifier, useless without an API token and account access.
+  '''97697ed2-a230-43c4-a63f-8d421def1861''',
+]
+paths = [
+  '''fonts/.*''',
+  '''images/.*''',
+  '''.*\.(png|jpe?g|woff2?|ico)$''',
+]

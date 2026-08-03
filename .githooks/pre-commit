@@ -1,0 +1,38 @@
+#!/bin/sh
+# Block commits containing secrets. This repo is public — a pushed secret is
+# permanent, so this fails closed if gitleaks is missing.
+#
+# Enabled by: git config core.hooksPath .githooks
+# Bypass once (use sparingly): SKIP_GITLEAKS=1 git commit ...
+
+set -e
+
+if [ -n "$SKIP_GITLEAKS" ]; then
+  echo "pre-commit: gitleaks skipped via SKIP_GITLEAKS"
+  exit 0
+fi
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit: gitleaks is not installed, refusing to commit."
+  echo
+  echo "  brew install gitleaks"
+  echo
+  echo "This repo is public. Commit anyway with: SKIP_GITLEAKS=1 git commit ..."
+  exit 1
+fi
+
+# 'protect' was replaced by 'git --staged'. Prefer the modern form: 'protect'
+# still resolves on 8.30 but is a no-op there, which would silently pass.
+if gitleaks git --help >/dev/null 2>&1; then
+  SCAN="git --staged"
+else
+  SCAN="protect --staged"
+fi
+
+# shellcheck disable=SC2086
+if ! gitleaks $SCAN --redact --verbose --config .gitleaks.toml; then
+  echo
+  echo "pre-commit: potential secret found in staged changes — commit blocked."
+  echo "If it is a false positive, add it to the allowlist in .gitleaks.toml."
+  exit 1
+fi
