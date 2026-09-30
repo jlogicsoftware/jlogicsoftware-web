@@ -4,6 +4,7 @@
  * Routes handled here; everything else falls through to the static assets.
  *   POST /api/collect   beacon endpoint
  *   GET  /stats         dashboard (HTTP Basic auth)
+ *   GET  /articles/:slug  article page; title and link-preview tags come from articles/:slug.md
  *
  * Secrets (wrangler secret put ...):
  *   SALT        random string, seeds the daily visitor hash
@@ -265,6 +266,34 @@ const dashboard = async (env, days) => {
 </html>`;
 };
 
+// --- articles ----------------------------------------------------------------
+
+const ARTICLE_SLUG_RE = /^\/articles\/([a-z0-9-]+)\/?$/;
+
+/**
+ * Serves the static article shell with per-article <title> and Open Graph tags, so link
+ * previews (LinkedIn, Slack, ...) work without executing JS. Body rendering stays client-side.
+ */
+const articlePage = async (request, env, slug) => {
+  const origin = new URL(request.url).origin;
+  const markdown = await env.ASSETS.fetch(new URL(`/articles/${slug}.md`, origin));
+  if (!markdown.ok) return env.ASSETS.fetch(request);
+
+  const title = ((await markdown.text()).match(/^#\s+(.+)$/m) || [])[1]?.trim();
+  const shell = await env.ASSETS.fetch(new URL('/article', origin));
+  if (!title) return shell;
+
+  const set = (attr, value) => ({
+    element: (el) => el.setAttribute(attr, value),
+  });
+
+  return new HTMLRewriter()
+    .on('title', { element: (el) => el.setInnerContent(`${title} | jLogic Software`) })
+    .on('meta[property="og:title"]', set('content', title))
+    .on('meta[property="og:url"]', set('content', `${origin}/articles/${slug}`))
+    .transform(shell);
+};
+
 // --- entrypoint --------------------------------------------------------------
 
 export default {
@@ -303,6 +332,9 @@ export default {
         headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' },
       });
     }
+
+    const article = url.pathname.match(ARTICLE_SLUG_RE);
+    if (article && request.method === 'GET') return articlePage(request, env, article[1]);
 
     return env.ASSETS.fetch(request);
   },
