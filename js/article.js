@@ -1,6 +1,7 @@
 // Renders /articles/<slug> by fetching /articles/<slug>.md and converting it with marked.
 
 import { marked } from './vendor/marked.esm.js';
+import { dateElement } from './date.js';
 
 const body = document.getElementById('article-body');
 const slug = location.pathname.replace(/\/+$/, '').split('/').pop();
@@ -31,7 +32,11 @@ const render = async () => {
     }
   }
 
-  const title = body.querySelector('h1')?.textContent;
+  const heading = body.querySelector('h1');
+  const date = dateElement(slug);
+  if (heading && date) heading.after(date);
+
+  const title = heading?.textContent;
   if (title) document.title = `${title} | jLogic Software`;
 };
 

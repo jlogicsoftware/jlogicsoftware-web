@@ -8,7 +8,9 @@ Static site plus a small analytics Worker. No build step, no framework — plain
 index.html    single page, all sections
 privacy.html  privacy policy
 article.html  shell for article pages; served by the Worker at /articles/<slug>
-articles/     long-form articles as markdown, rendered client-side by js/article.js
+articles.html article index at /articles, built from articles/index.json (add an entry per article)
+articles/     long-form articles as markdown, rendered client-side by js/article.js;
+              the file name's YYYY-MM-DD prefix is the publication date
 css/          one stylesheet per section, plus tokens.css (design tokens) and base.css (reset/typography)
 js/           navbar.js (scroll/menu behavior), github-stats.js (live GitHub stats),
               analytics.js (cookieless analytics beacon), article.js (markdown renderer),
