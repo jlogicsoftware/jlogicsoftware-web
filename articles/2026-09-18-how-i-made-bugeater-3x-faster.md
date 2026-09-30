@@ -1,14 +1,5 @@
 # How I Made BugEater 3x Faster (And That's Not the Point)
 
-*Illustration: capybara element by upklyak — Magnific.com*
-
-**TL;DR (for the "tell your network what your article is about" field):** A production page that
-took 27 seconds to load, five embarrassingly simple bottlenecks found by reading logs instead of
-guessing, real before/after numbers (8x–37x on the request path), and an honest admission that
-cold start is still unsolved. The real story isn't the speedup — it's what changed about which
-problems are even worth fixing once AI removes the routine-execution cost, and what 20+ years of
-engineering judgment still has to catch that AI gets wrong.
-
 Quick spoiler so haters don't have to invent one: not everything got 3x faster. One part of the system — cold start, the time it takes the server to wake up from a dead stop — has achieved full zen and is exactly as slow as it ever was. A capybara. Not a bug, a feature.
 
 But there's a nuance to why I even got into this, and it matters more than the numbers in the headline.
