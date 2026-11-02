@@ -25,13 +25,25 @@ const render = async () => {
   articles.sort((a, b) => b.slug.localeCompare(a.slug));
 
   list.replaceChildren(
-    ...articles.map(({ slug, title, description }) => {
+    ...articles.map(({ slug, title, description, image, imageWidth, imageHeight }) => {
       const item = document.createElement('li');
       item.className = 'article-list__item';
 
       const link = document.createElement('a');
       link.href = `/articles/${slug}`;
       link.className = 'article-list__link';
+
+      if (image?.startsWith('/images/')) {
+        const cover = document.createElement('img');
+        cover.className = 'article-list__cover';
+        cover.src = image;
+        cover.alt = '';
+        cover.width = imageWidth || 1280;
+        cover.height = imageHeight || 720;
+        cover.loading = 'lazy';
+        cover.decoding = 'async';
+        link.append(cover);
+      }
 
       const heading = document.createElement('h2');
       heading.className = 'article-list__heading';

@@ -1,25 +1,60 @@
--- Analytics events. No IP addresses, no cookies, no cross-day identifiers.
---
--- visitor_hash = SHA-256(daily_salt + ip + user-agent), truncated to 128 bits.
--- The salt rotates every UTC midnight, so the same person on two different days
--- produces two unrelated hashes. The raw IP is never written anywhere.
-
-CREATE TABLE IF NOT EXISTS events (
-  id            INTEGER PRIMARY KEY AUTOINCREMENT,
-  ts            INTEGER NOT NULL,  -- unix millis
-  day           TEXT    NOT NULL,  -- YYYY-MM-DD, UTC
-  visitor_hash  TEXT    NOT NULL,
-  name          TEXT    NOT NULL,  -- pageview | cta_book_call | outbound
-  path          TEXT,
-  source        TEXT,              -- utm_source, else referrer host, else 'direct'
-  referrer_host TEXT,
-  utm_medium    TEXT,
-  utm_campaign  TEXT,
-  country       TEXT,              -- two-letter, from Cloudflare edge
-  device        TEXT,              -- desktop | mobile | tablet
-  target        TEXT               -- outbound destination host
+-- Additive analytics schema. Never reads/imports v1 or v2 analytics.
+-- Existing identifier-bearing tables require explicit owner-approved retirement.
+CREATE TABLE IF NOT EXISTS analytics_page_counts (
+  day TEXT NOT NULL,
+  path TEXT NOT NULL CHECK(path IN (
+    '/', '/about', '/development', '/privacy', '/articles',
+    '/articles/2026-09-18-how-i-made-bugeater-3x-faster'
+  )),
+  pageviews INTEGER NOT NULL CHECK(pageviews >= 0),
+  PRIMARY KEY(day,path)
 );
 
-CREATE INDEX IF NOT EXISTS idx_events_day       ON events (day);
-CREATE INDEX IF NOT EXISTS idx_events_day_name  ON events (day, name);
-CREATE INDEX IF NOT EXISTS idx_events_source    ON events (day, source);
+-- New source/campaign dimensions start empty: existing page totals stay intact.
+-- One daily aggregate per fixed page and shared category combination, not an
+-- event log. No visitor/session IDs, IPs, raw referrers or request timestamps.
+CREATE TABLE IF NOT EXISTS analytics_request_counts (
+  day TEXT NOT NULL,
+  path TEXT NOT NULL CHECK(path IN (
+    '/', '/about', '/development', '/privacy', '/articles',
+    '/articles/2026-09-18-how-i-made-bugeater-3x-faster'
+  )),
+  source TEXT NOT NULL,
+  medium TEXT NOT NULL,
+  campaign TEXT NOT NULL,
+  pageviews INTEGER NOT NULL CHECK(pageviews >= 0),
+  PRIMARY KEY(day,path,source,medium,campaign)
+);
+
+-- Natural same-origin HTML transitions, not exact clicks or unique visitors.
+CREATE TABLE IF NOT EXISTS analytics_navigation_counts (
+  day TEXT NOT NULL,
+  from_path TEXT NOT NULL CHECK(from_path IN (
+    '/', '/about', '/development', '/privacy', '/articles',
+    '/articles/2026-09-18-how-i-made-bugeater-3x-faster'
+  )),
+  to_path TEXT NOT NULL CHECK(to_path IN (
+    '/', '/about', '/development', '/privacy', '/articles',
+    '/articles/2026-09-18-how-i-made-bugeater-3x-faster'
+  )),
+  navigations INTEGER NOT NULL CHECK(navigations >= 0),
+  CHECK(from_path != to_path),
+  PRIMARY KEY(day,from_path,to_path)
+);
+
+-- Isolated daily estimate: never attach these codes to pages, sources or actions.
+-- Random 256-bit HMAC key, freshly generated per UTC day, not a permanent salt.
+CREATE TABLE IF NOT EXISTS analytics_daily_secrets (
+  day TEXT PRIMARY KEY NOT NULL,
+  secret TEXT NOT NULL CHECK(length(secret) = 64)
+) WITHOUT ROWID;
+CREATE TABLE IF NOT EXISTS analytics_daily_membership (
+  day TEXT NOT NULL,
+  code TEXT NOT NULL CHECK(length(code) = 64),
+  PRIMARY KEY(day,code)
+) WITHOUT ROWID;
+-- The only visitor result retained after daily secret/membership expiry.
+CREATE TABLE IF NOT EXISTS analytics_visitor_counts (
+  day TEXT PRIMARY KEY NOT NULL,
+  visitors INTEGER NOT NULL CHECK(visitors >= 0)
+) WITHOUT ROWID;

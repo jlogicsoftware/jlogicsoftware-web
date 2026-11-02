@@ -1,4 +1,9 @@
-# How I Made BugEater 3x Faster (And That's Not the Point)
+# How I made BugEater 3x faster (and that's not the point)
+
+<figure class="article-cover">
+  <img src="/images/bugeater-performance-cover.png" alt="Capybara relaxing in a wooden tub" width="1280" height="720">
+  <figcaption>Illustration: capybara element by upklyak — Magnific.com</figcaption>
+</figure>
 
 Quick spoiler so haters don't have to invent one: not everything got 3x faster. One part of the system — cold start, the time it takes the server to wake up from a dead stop — has achieved full zen and is exactly as slow as it ever was. A capybara. Not a bug, a feature.
 

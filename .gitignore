@@ -6,3 +6,9 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# Installed dependencies
+node_modules/
+
+# Private assessment is maintained outside the public repository
+/ANALYTICS-PRIVACY.md

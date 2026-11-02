@@ -1,7 +1,11 @@
 [
   {
     "slug": "2026-09-18-how-i-made-bugeater-3x-faster",
-    "title": "How I Made BugEater 3x Faster (And That's Not the Point)",
-    "description": "A page that took 27 seconds to load, five bottlenecks found by reading logs, and what AI changes about which problems are worth fixing."
+    "title": "How I made BugEater 3x faster (and that's not the point)",
+    "description": "A page that took 27 seconds to load, five bottlenecks found by reading logs, and what AI changes about which problems are worth fixing.",
+    "image": "/images/bugeater-performance-cover.png",
+    "imageAlt": "Capybara relaxing in a wooden tub",
+    "imageWidth": 1280,
+    "imageHeight": 720
   }
 ]

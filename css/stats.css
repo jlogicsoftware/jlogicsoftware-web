@@ -126,7 +126,7 @@
   }
 }
 
-/* Daily visitor chart */
+/* Daily request chart */
 .chart {
   display: flex;
   align-items: flex-end;
@@ -196,7 +196,7 @@
   background: color-mix(in oklch, var(--primary) var(--tint-70), transparent);
 }
 
-/* Conversion table */
+/* Aggregate detail tables */
 .funnel {
   width: 100%;
   border-collapse: collapse;
@@ -233,4 +233,24 @@
   color: var(--muted-foreground);
   font-size: var(--text-xs);
   line-height: var(--leading-relaxed);
+}
+
+.stats__intro {
+  margin-bottom: var(--space-6);
+  color: var(--muted-foreground);
+}
+
+.panel p + p {
+  margin-top: var(--space-3);
+}
+
+.campaign-link {
+  display: block;
+  padding: var(--space-3);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow-wrap: anywhere;
+  white-space: normal;
+  user-select: all;
 }
