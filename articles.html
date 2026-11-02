@@ -3,47 +3,69 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Articles | jLogic Software</title>
-  <meta name="description" content="Long-form engineering write-ups by Anatolii Merezhanyi, jLogic Software.">
-  <meta name="robots" content="index, follow">
+  <title>Articles — jLogic Software</title>
+  <meta name="description" content="Engineering write-ups by Anatolii Merezhanyi: practical problems, technical decisions and lessons from building software.">
+  <link rel="canonical" href="https://jlogicsoftware.com/articles">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="jLogic Software">
-  <meta property="og:title" content="Articles">
-  <meta property="og:description" content="Long-form engineering write-ups by Anatolii Merezhanyi, jLogic Software.">
+  <meta property="og:title" content="Articles — jLogic Software">
+  <meta property="og:description" content="Engineering write-ups by Anatolii Merezhanyi: practical problems, technical decisions and lessons from building software.">
   <meta property="og:url" content="https://jlogicsoftware.com/articles">
-
-  <link rel="icon" type="image/svg+xml" href="/icon.svg">
-  <link rel="icon" type="image/png" href="/icon-light-32x32.png">
-  <link rel="apple-touch-icon" href="/apple-icon.png">
-
-  <link rel="stylesheet" href="/css/tokens.css">
-  <link rel="stylesheet" href="/css/base.css">
-  <link rel="stylesheet" href="/css/article.css">
+  <meta property="og:image" content="https://jlogicsoftware.com/images/bugeater-performance-cover.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+  <meta property="og:image:alt" content="Capybara relaxing in a wooden tub">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Articles — jLogic Software">
+  <meta name="twitter:description" content="Engineering write-ups by Anatolii Merezhanyi: practical problems, technical decisions and lessons from building software.">
+  <meta name="twitter:image" content="https://jlogicsoftware.com/images/bugeater-performance-cover.png">
+  <meta name="twitter:image:alt" content="Capybara relaxing in a wooden tub">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/site.css?v=20261102-r3">
+  <link rel="stylesheet" href="/css/article.css?v=20261102-r4">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header page-width">
+    <a class="brand" href="/" aria-label="jLogic Software home"><img src="/icon.svg" alt="" width="52" height="52"><span>jLogic <span class="brand-suffix">Software</span></span></a>
+    <nav aria-label="Main navigation">
+      <a href="/">Mentoring</a>
+      <a href="/development">Development</a>
+      <a href="/articles" aria-current="page">Articles</a>
+      <a href="/about">About</a>
+    </nav>
+  </header>
 
-  <main class="article">
-    <div class="container container--prose">
-
-      <a href="/" class="article__back">
-        <svg class="icon icon--sm"><use href="/assets/icons.svg#icon-arrow-right"></use></svg>
-        Back to jlogicsoftware.com
-      </a>
-
-      <h1 class="article-list__title">Articles</h1>
-
-      <ul id="article-list" class="article-list" aria-busy="true">
-        <li class="article__status">Loading…</li>
-      </ul>
-
-      <noscript><p class="article__status">The article list needs JavaScript.</p></noscript>
-
+  <main id="main-content" class="article article-index">
+    <div class="reading-width page-width">
+      <h1 class="article-list__title">From my engineering work.</h1>
+      <p class="article-index-intro">Practical problems, technical decisions, and what I learn from building software.</p>
+      <ul id="article-list" class="article-list" aria-busy="true"><li class="article__status">Loading…</li></ul>
+      <noscript><p class="article__status">The article list needs JavaScript. You can read <a href="/articles/2026-09-18-how-i-made-bugeater-3x-faster.md">How I made BugEater 3x faster (and that's not the point) (Markdown)</a>.</p></noscript>
     </div>
   </main>
 
-  <script src="/js/analytics.js" type="module"></script>
+  <footer class="site-footer">
+    <div class="page-width">
+      <div class="footer-top">
+        <a class="brand" href="/" aria-label="jLogic Software home"><img src="/icon.svg" alt="" width="44" height="44"><span>jLogic <span class="brand-suffix">Software</span></span></a>
+        <nav class="link-row" aria-label="Social links">
+          <a href="mailto:am@jlogicsoftware.com">Email</a>
+          <a href="https://linkedin.com/in/a-merezhanyi">LinkedIn</a>
+          <a href="https://github.com/a-merezhanyi">GitHub</a>
+          <a href="https://www.youtube.com/@StyledJavaScript">YouTube</a>
+        </nav>
+      </div>
+      <div class="footer-legal">
+        <p>jLogic Software Anatolii Merezhanyi · 50-000 Wrocław, Poland · NIP: 8952232325 · <a href="mailto:am@jlogicsoftware.com">am@jlogicsoftware.com</a></p>
+        <a href="/privacy">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+
   <script src="/js/articles.js" type="module"></script>
 
-  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "bdb7df8e38a6474f9bd8b37010d50229"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

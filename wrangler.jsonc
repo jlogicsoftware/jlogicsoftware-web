@@ -3,12 +3,38 @@
 	"name": "jlogicsoftware-web",
 	"main": "worker/index.js",
 	"compatibility_date": "2026-07-23",
+	"vars": {
+		"ACCESS_TEAM_DOMAIN": "old-flower-c867.cloudflareaccess.com",
+		"ACCESS_AUD": "d6e5b0410b5e62a5e40653cca7ee7f8bc540343ecdf6c7bf0fedbc18f3ee6888"
+	},
+	// STATS_ALLOWED_EMAIL is a private Worker secret, never a source-controlled variable.
 	"observability": {
-		"enabled": true
+		"enabled": false
 	},
 	"assets": {
 		"directory": ".",
-		"binding": "ASSETS"
+		"binding": "ASSETS",
+		"run_worker_first": [
+			"/",
+			"/index",
+			"/index.html",
+			"/about",
+			"/about.html",
+			"/development",
+			"/development.html",
+			"/privacy",
+			"/privacy.html",
+			"/articles",
+			"/articles.html",
+			"/api/*",
+			"/stats*",
+			"/about/",
+			"/development/",
+			"/privacy/",
+			"/articles/",
+			"/articles/2026-09-18-how-i-made-bugeater-3x-faster",
+			"/articles/2026-09-18-how-i-made-bugeater-3x-faster/"
+		]
 	},
 	"compatibility_flags": [
 		"nodejs_compat"

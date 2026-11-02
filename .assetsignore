@@ -14,3 +14,10 @@ package.json
 package-lock.json
 README.md
 .DS_Store
+.codex/
+.gitmessage
+.dev.vars*
+.wrangler/
+.playwright-mcp/
+tests/
+ANALYTICS-PRIVACY.md
