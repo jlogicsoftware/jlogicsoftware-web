@@ -80,7 +80,7 @@ test('JWKS cache limits repeat fetches and reloads on key rotation after cooldow
 
 test('all stats path variants authenticate before assets, including workers.dev; throttling stays separate', async () => {
   const {worker, headers} = await fixture();
-  const env={...accessEnv,ASSETS:{fetch(){assert.fail('stats must not reach assets');}},DB:{prepare(){assert.fail('unauthorized must not query data');}}};
+  const env={...accessEnv,ASSETS:{fetch(url){assert.ok(['/401','/403','/429'].includes(new URL(url).pathname));return new Response('<h1>Request denied</h1>',{headers:{'content-type':'text/html'}});}},DB:{prepare(){assert.fail('unauthorized must not query data');}}};
   for (const path of ['/stats','/stats/','/stats/subpath','/stats.html','/STATS','/stats%2f']) {
     const denial=await worker.fetch(request(null,{},path),env,{});
     assert.equal(denial.status,401,path);
