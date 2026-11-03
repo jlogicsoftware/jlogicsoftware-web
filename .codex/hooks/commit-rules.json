@@ -1,0 +1,6 @@
+{
+  "subject_max": 50,
+  "protected_branches": ["main", "master"],
+  "subject_pattern": null,
+  "subject_pattern_hint": ""
+}

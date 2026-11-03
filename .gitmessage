@@ -1,0 +1,11 @@
+
+
+# ----------------------------------------------| <- 50 characters ends here
+# Subject: imperative mood, no trailing period, at most 50 characters.
+# Then a blank line, then the body wrapped at 72:
+# ------------------------------------------------------------------- 72 ->
+#
+# The body says WHY the change exists, not what the diff already shows.
+#
+# Enforced by .claude/hooks/git_guard.py (Claude sessions) and
+# .git/hooks/commit-msg (everything else). Override: git commit --no-verify
