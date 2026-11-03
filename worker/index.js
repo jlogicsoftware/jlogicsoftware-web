@@ -1,5 +1,6 @@
 import {collect,countablePath,defer,record,rollup,utcDay} from './analytics.js';
 import {createStatsAuthorizer} from './access.js';
+import {errorPage} from './errors.js';
 
 const esc = (s) =>
   String(s ?? '—').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -121,6 +122,15 @@ export function createWorker(options) {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
+    const error = url.pathname.match(/^\/(401|403|404|429)(?:\.html)?\/?$/);
+    if (error && (request.method === 'GET' || request.method === 'HEAD')) {
+      const status = Number(error[1]);
+      return errorPage(request, env, new Response('Request could not be completed', {
+        status,
+        headers: {'content-type': 'text/plain; charset=utf-8', ...(status === 429 ? {'retry-after': '60'} : {})},
+      }));
+    }
+
     if (url.pathname === '/api/collect') {
       return collect();
     }
@@ -132,15 +142,15 @@ export function createWorker(options) {
         const ip = request.headers.get('cf-connecting-ip') || 'unknown';
         const { success } = await limiter.limit({ key: ip });
         if (!success) {
-          return new Response('Too many requests', {
+          return errorPage(request, env, new Response('Too many requests', {
             status: 429,
             headers: { 'retry-after': '60' },
-          });
+          }));
         }
       }
 
       const denial = await authorizeStats(request, env);
-      if (denial) return denial;
+      if (denial) return errorPage(request, env, denial);
       if (url.pathname !== '/stats') {
         return new Response(null, {status: 308, headers: {location: '/stats' + url.search, 'cache-control': 'no-store'}});
       }

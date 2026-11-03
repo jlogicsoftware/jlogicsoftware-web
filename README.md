@@ -185,6 +185,19 @@ are allowlisted in `.gitleaks.toml`. Bypass once with `SKIP_GITLEAKS=1 git commi
 
 Real secrets belong in `wrangler secret put`, never in a file.
 
+## Branded error pages
+
+Missing assets use `404.html` through `assets.not_found_handling: "404-page"`.
+Worker-generated 401, 403 and 429 responses use the matching static templates,
+preserving the HTTP status, no-store policy and Retry-After for rate limits.
+The public `/401`, `/403`, `/404` and `/429` URLs also return their named status;
+none of these pages is counted in site analytics.
+
+Cloudflare Access rejects some requests before the Worker executes. Its identity
+and non-identity block-page redirects can point to `https://jlogicsoftware.com/403`.
+WAF/challenge pages are managed separately by Cloudflare; Worker templates alone
+do not override those edge responses.
+
 ## Google sign-in for the dashboard
 
 The Worker validates Cloudflare Access JWT signatures, issuer, application audience,
