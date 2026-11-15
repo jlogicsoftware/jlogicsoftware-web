@@ -38,7 +38,9 @@
 			"/privacy/",
 			"/articles/",
 			"/articles/2026-09-18-how-i-made-bugeater-3x-faster",
-			"/articles/2026-09-18-how-i-made-bugeater-3x-faster/"
+			"/articles/2026-09-18-how-i-made-bugeater-3x-faster/",
+			"/articles/2026-11-15-how-i-made-my-game-3x-faster-by-moving-from-dart-to-java",
+			"/articles/2026-11-15-how-i-made-my-game-3x-faster-by-moving-from-dart-to-java/"
 		]
 	},
 	"compatibility_flags": [
