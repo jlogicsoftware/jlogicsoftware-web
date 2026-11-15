@@ -94,9 +94,9 @@ const articlePage = async (request, env, slug) => {
   const articles = index.ok ? await index.json() : [];
   const article = articles.find((entry) => entry.slug === slug);
   const canonical = `https://jlogicsoftware.com/articles/${slug}`;
-  const description = article?.description || `An engineering article by Anatolii Merezhanyi: ${title}`;
+  const description = article?.description || `An engineering article by Anatol Mereżany: ${title}`;
   const image = new URL(article?.image || '/images/social-portrait.jpg', 'https://jlogicsoftware.com').href;
-  const imageAlt = article?.imageAlt || 'Anatolii Merezhanyi, software engineer and developer mentor';
+  const imageAlt = article?.imageAlt || 'Anatol Mereżany, software engineer and developer mentor';
   const set = (attr, value) => ({
     element: (el) => el.setAttribute(attr, value),
   });
