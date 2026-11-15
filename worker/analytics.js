@@ -3,6 +3,7 @@ import {CAMPAIGN_LABELS} from './campaigns.js';
 export const PAGE_PATHS = new Set([
   '/', '/about', '/development', '/privacy', '/articles',
   '/articles/2026-09-18-how-i-made-bugeater-3x-faster',
+  '/articles/2026-11-15-how-i-made-my-game-3x-faster-by-moving-from-dart-to-java',
 ]);
 const BOT_RE = /bot|crawl|spider|slurp|headless|monitor|preview|curl|wget|lighthouse|pingdom|gtmetrix/i;
 export const utcDay = (ms) => new Date(ms).toISOString().slice(0, 10);

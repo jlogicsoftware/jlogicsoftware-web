@@ -103,7 +103,13 @@ limited to 10 requests/minute per IP before authentication; failed logins never 
 feed analytics.
 
 When adding an article or page, update both `PAGE_PATHS` in `worker/analytics.js` and
-`assets.run_worker_first` in `wrangler.jsonc`. Article markdown, index JSON, styles,
+`assets.run_worker_first` in `wrangler.jsonc`. If the page is to be counted, its path also goes into the four
+`CHECK(... IN (...))` allow-lists in `worker/schema.sql`. SQLite cannot alter a CHECK in place, so the deployed D1
+tables have to be rebuilt first: copy `worker/migrations/2026-11-15-register-article/` as the template (`01-prepare`,
+`02-swap`, `03-cleanup`) and run it on production **before** deploying the Worker. The Worker records each request
+in one transactional D1 batch, so a path the tables still reject would roll back the whole batch, including the
+visitor estimate, and the failure is silent. Production operations need separate authorization. The migration
+test (`tests/migration.test.mjs`) rehearses the procedure on SQLite. Article markdown, index JSON, styles,
 fonts, scripts and images remain on static asset routing. Only successful GET HTML
 responses count; redirects, errors, HEAD and ordinary static assets do not.
 

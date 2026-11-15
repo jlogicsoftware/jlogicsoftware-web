@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS analytics_page_counts (
   day TEXT NOT NULL,
   path TEXT NOT NULL CHECK(path IN (
     '/', '/about', '/development', '/privacy', '/articles',
-    '/articles/2026-09-18-how-i-made-bugeater-3x-faster'
+    '/articles/2026-09-18-how-i-made-bugeater-3x-faster',
+    '/articles/2026-11-15-how-i-made-my-game-3x-faster-by-moving-from-dart-to-java'
   )),
   pageviews INTEGER NOT NULL CHECK(pageviews >= 0),
   PRIMARY KEY(day,path)
@@ -17,7 +18,8 @@ CREATE TABLE IF NOT EXISTS analytics_request_counts (
   day TEXT NOT NULL,
   path TEXT NOT NULL CHECK(path IN (
     '/', '/about', '/development', '/privacy', '/articles',
-    '/articles/2026-09-18-how-i-made-bugeater-3x-faster'
+    '/articles/2026-09-18-how-i-made-bugeater-3x-faster',
+    '/articles/2026-11-15-how-i-made-my-game-3x-faster-by-moving-from-dart-to-java'
   )),
   source TEXT NOT NULL,
   medium TEXT NOT NULL,
@@ -31,11 +33,13 @@ CREATE TABLE IF NOT EXISTS analytics_navigation_counts (
   day TEXT NOT NULL,
   from_path TEXT NOT NULL CHECK(from_path IN (
     '/', '/about', '/development', '/privacy', '/articles',
-    '/articles/2026-09-18-how-i-made-bugeater-3x-faster'
+    '/articles/2026-09-18-how-i-made-bugeater-3x-faster',
+    '/articles/2026-11-15-how-i-made-my-game-3x-faster-by-moving-from-dart-to-java'
   )),
   to_path TEXT NOT NULL CHECK(to_path IN (
     '/', '/about', '/development', '/privacy', '/articles',
-    '/articles/2026-09-18-how-i-made-bugeater-3x-faster'
+    '/articles/2026-09-18-how-i-made-bugeater-3x-faster',
+    '/articles/2026-11-15-how-i-made-my-game-3x-faster-by-moving-from-dart-to-java'
   )),
   navigations INTEGER NOT NULL CHECK(navigations >= 0),
   CHECK(from_path != to_path),

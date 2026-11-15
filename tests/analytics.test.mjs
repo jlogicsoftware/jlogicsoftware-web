@@ -58,7 +58,7 @@ test('schema is repeatable and additive; pseudonyms stay isolated from aggregate
 });
 
 test('page allowlist canonicalizes public aliases and rejects private/arbitrary paths', () => {
-  for (const [path,canonical] of [['/index.html','/'],['/development.html','/development'],['/about/','/about'],['/articles/2026-09-18-how-i-made-bugeater-3x-faster','/articles/2026-09-18-how-i-made-bugeater-3x-faster']]) assert.equal(canonicalPath(path),canonical);
+  for (const [path,canonical] of [['/index.html','/'],['/development.html','/development'],['/about/','/about'],['/articles/2026-09-18-how-i-made-bugeater-3x-faster','/articles/2026-09-18-how-i-made-bugeater-3x-faster'],['/articles/2026-11-15-how-i-made-my-game-3x-faster-by-moving-from-dart-to-java','/articles/2026-11-15-how-i-made-my-game-3x-faster-by-moving-from-dart-to-java']]) assert.equal(canonicalPath(path),canonical);
   for (const path of ['/article','/people/email@example.com','/?email=alice','/articles/unknown','/stats']) assert.equal(canonicalPath(path),null);
 });
 
