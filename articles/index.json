@@ -7,5 +7,14 @@
     "imageAlt": "Capybara relaxing in a wooden tub",
     "imageWidth": 1280,
     "imageHeight": 720
+  },
+  {
+    "slug": "2026-11-15-how-i-made-my-game-3x-faster-by-moving-from-dart-to-java",
+    "title": "How I made my game 3x faster by moving from Dart to Java (but that's not the point)",
+    "description": "My game got slower, I blamed the engine and rewrote it in Java. The real culprit was a memory leak I wrote myself, found by counting components and proven with a synthetic test.",
+    "image": "/images/how-i-made-my-game-3x-faster-cover.png",
+    "imageAlt": "Capybara relaxing in a pond with a rubber duck on its head",
+    "imageWidth": 1280,
+    "imageHeight": 720
   }
 ]
